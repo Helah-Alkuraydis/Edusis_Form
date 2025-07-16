@@ -9,6 +9,9 @@ import SelectingPreferences from './steps/selectingPreferences';
 import { FormControlsProvider } from './hooks/useForm';
 import FormHeader from './formHeader';
 import { Form } from '../ui/form';
+import FormFooter from './formFooter';
+import WelcomeSection from './top';
+import RenderComponent from './renderComponent';
 
 export type Step = {
   id: string;
@@ -81,9 +84,12 @@ const ApplicationForm = () => {
     <FormControlsProvider steps={steps}>
       <Form{...form}>
         <form onSubmit= {form.handleSubmit(onSubmit)}
-        className='space-y-8 h-svh py-20 flex flex-col justify-between'
+        className='space-y-8 h-svh py-8 flex flex-col justify-between'
         >
+          <WelcomeSection/>
           <FormHeader steps={steps}/>
+          <RenderComponent steps={steps}/>
+          <FormFooter steps={steps} />
         </form>
         
       </Form>

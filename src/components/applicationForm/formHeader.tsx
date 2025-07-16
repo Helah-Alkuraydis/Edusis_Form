@@ -14,7 +14,7 @@ const FormHeader = ({ steps }: { steps: Step[] }) => {
     formState: { errors },
   } = useFormContext<FormSchemaType>();
   return (
-    <div className="flex justify-between px-7  gap-3">
+    <div className="flex flex-row-reverse justify-between px-7  gap-3">
       {steps.map((step, idx) => {
         const isEnabled =
           idx > currentPageIndex + 1 || idx === currentPageIndex; // Only Next one button and all prev buttons are enabled
@@ -30,21 +30,22 @@ const FormHeader = ({ steps }: { steps: Step[] }) => {
                 shouldFocus: true,
               });
               if (!res) {
-                toast.error("Please fill the required fields");
+                toast.error("فضلًا اكمل جميع الحقول");
                 return;
               }
               setPage(idx);
             }}
             className={cn(
-              "w-full flex flex-col  justify-between disabled:cursor-default text-left gap-4 ",
+              "w-full flex flex-col  justify-between disabled:cursor-default text-center gap-4 ",
               idx <= currentPageIndex && "text-purple-600",
               idx > currentPageIndex && "opacity-50",
               hasError && "text-red-600"
             )}
             key={step.id}
           >
-            <p className="text-sm ">
-              {idx + 1}. {step.title}
+            <p className="text-sm" >
+              {step.title}
+              {/* . {idx + 1} */}
             </p>
 
             <motion.div
@@ -70,7 +71,7 @@ const FormHeader = ({ steps }: { steps: Step[] }) => {
                   }`,
                 }}
                 className={cn(
-                  "h-full rounded-sm",
+                  "h-full rounded-sm absolute right-0",
                   hasError ? "bg-red-600" : "bg-purple-600"
                 )}
               />
