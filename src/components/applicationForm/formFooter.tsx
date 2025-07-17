@@ -18,16 +18,17 @@ const FormFooter = ({ steps }: { steps: Step[] }) => {
   if (isFinalPage) {
     return (
       <div className="w-full flex justify-between px-7">
-        <Button type="button" onClick={handleBack} disabled={!hasPreviousPage}>
+        
+        <Button  className="bg-gold1 text-white hover:bg-gold/90" type="submit">ارسال</Button>
+        <Button className="bg-neutral-500 text-white hover:bg-neutral-500/90" type="button" onClick={handleBack} disabled={!hasPreviousPage}>
           رجوع
         </Button>
-        <Button type="submit">ارسال</Button>
       </div>
     );
   }
   return (
-    <div className="w-full flex justify-between px-7">
-      <Button
+    <div className="w-full flex justify-between px-7 py-12">
+      <Button className="bg-gold1 text-white hover:bg-gold/90"
         onClick={async () => {
           const res = await trigger(steps[currentPageIndex].inputs, {
             shouldFocus: true,
@@ -42,7 +43,7 @@ const FormFooter = ({ steps }: { steps: Step[] }) => {
       >
         التالي
       </Button>
-      <Button onClick={handleBack} type="button" disabled={!hasPreviousPage}>
+      <Button className="bg-neutral-500 text-white hover:bg-neutral-500/90" onClick={handleBack} type="button" disabled={!hasPreviousPage}>
         رجوع
       </Button>
     </div>

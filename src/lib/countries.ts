@@ -7,6 +7,13 @@ type Country = {
 };
 
 
+const saData = (countriesJson as Record<string, Country>)["sa"];
+
+
+export const saCities =  [...new Set(saData.states.flatMap((state) => state.name))] as [string, ...string[]];
+
+export const saCitiesEnum = [...new Set(saData.states.flatMap((state) => state.name))] as [string, ...string[]];
+
 class CountryDataLoader {
   private countriesMap: Map<string, Country>;
   private static _instance: CountryDataLoader;

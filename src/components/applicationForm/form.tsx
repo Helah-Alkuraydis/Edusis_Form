@@ -57,20 +57,11 @@ const ApplicationForm = () => {
       id: "",
       email: "",
       phone: "",
-      creationCity: "غير محدد",
-      dateOfBirth: "",
-      gender: "undefined",
-      city : "غير محدد",
-      qualification: "undefiend",
-      highSchoolScore: 0,
-      achievementScore: 0,
-      aptitudeScore:0,
+      highSchoolScore: "",
+      achievementScore: "",
+      aptitudeScore:"",
       highSchoolFile: [],
       aptitudeFile :[],
-      preference1: "غير محدد",
-      preference2: "غير محدد",
-      preference3: "غير محدد",
-      
     }
 
   })

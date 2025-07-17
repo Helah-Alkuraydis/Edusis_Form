@@ -3,12 +3,15 @@ import { Step } from './form'
 import { useFormControls } from './hooks/useForm'
 import { motion } from 'framer-motion'
 
-const RenderComponent = ({steps} : {steps: Step[]} ) => {
-    const {currentPageIndex , delta} = useFormControls()
+const RenderComponent = ({ steps }: { steps: Step[] }) => {
+  const { currentPageIndex, delta } = useFormControls()
 
-    const step = steps[currentPageIndex]
-    const Comp = step.component
-    if (!Comp) return null ;
+  const step = steps[currentPageIndex];
+  if (!step) return null;
+
+  const Comp = step.component;
+  if (!Comp) return null;
+
   return (
     <motion.div
       key={currentPageIndex}
@@ -18,7 +21,7 @@ const RenderComponent = ({steps} : {steps: Step[]} ) => {
       className="px-7 flex flex-col gap-y-4 flex-1"
     >
       <div>
-        <h2 className="text-4xl font-bold tracking-tight leading-relaxed text-right">
+        <h2 className="text-4xl font-bold tracking-tight leading-relaxed text-right  text-slate-700">
           {step.title}
         </h2>
         <p className="text-sm text-foreground/70 text-right">{step.description}</p>

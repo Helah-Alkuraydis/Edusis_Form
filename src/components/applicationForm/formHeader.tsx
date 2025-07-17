@@ -6,8 +6,28 @@ import { FormSchemaType } from "@/schema/schema";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
+import { useWatch } from "react-hook-form";
 
 const FormHeader = ({ steps }: { steps: Step[] }) => {
+  const allValues = useWatch<FormSchemaType>(); // يراقب كل الحقول
+  const getStepProgress = (step: Step) => {
+  const total = step.inputs.length;
+  let filled = 0;
+
+  step.inputs.forEach((key) => {
+    const value = allValues?.[key];
+    if (typeof value === "string") {
+      if (value.trim() !== "") filled++;
+    } else if (Array.isArray(value)) {
+      if (value.length > 0) filled++;
+    } else if (value !== null && value !== undefined) {
+      filled++;
+    }
+  });
+
+  return (filled / total) * 100;
+};
+
   const { currentPageIndex, setPage } = useFormControls();
   const {
     trigger,
@@ -37,21 +57,21 @@ const FormHeader = ({ steps }: { steps: Step[] }) => {
             }}
             className={cn(
               "w-full flex flex-col  justify-between disabled:cursor-default text-center gap-4 ",
-              idx <= currentPageIndex && "text-purple-600",
+              idx <= currentPageIndex && "text-gold",
               idx > currentPageIndex && "opacity-50",
-              hasError && "text-red-600"
+              // hasError && "text-red-800"
             )}
             key={step.id}
           >
-            <p className="text-sm" >
+            <p className="text-lg text-nor" >
               {step.title}
               {/* . {idx + 1} */}
             </p>
 
             <motion.div
               className={cn(
-                "w-full h-3  relative rounded-sm",
-                hasError ? "bg-red-600/50" : "bg-purple-600/50"
+                "w-full h-3  relative rounded-full",
+                hasError ? "bg-red-800/50" : "bg-yellow-700/50"
               )}
             >
               <motion.div
@@ -62,17 +82,11 @@ const FormHeader = ({ steps }: { steps: Step[] }) => {
                   stiffness: 50, // Lower value makes it less bouncy
                 }}
                 animate={{
-                  width: `${
-                    idx === currentPageIndex
-                      ? "100%"
-                      : idx < currentPageIndex
-                      ? "100%"
-                      : "0%"
-                  }`,
+                 width: `${getStepProgress(step)}%`,
                 }}
                 className={cn(
-                  "h-full rounded-sm absolute right-0",
-                  hasError ? "bg-red-600" : "bg-purple-600"
+                  "h-full rounded-full absolute right-0",
+                  hasError ? "bg-red-800" : "bg-yellow-700"
                 )}
               />
             </motion.div>

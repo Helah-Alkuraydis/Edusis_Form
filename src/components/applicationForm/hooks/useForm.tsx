@@ -37,12 +37,11 @@ export const FormControlsProvider: React.FC<FormControlsProvidersProps> = ({ chi
         setHistoricPageIndex(currentPageIndex)
     };
 
-     const handleBack = () => {
-        if (currentPageIndex===0)return ;
-        setCurrentPageIndex(currentPageIndex+1);
-        setHistoricPageIndex(currentPageIndex)
-    };
-
+    const handleBack = () => {
+  if (currentPageIndex === 0) return;
+  setCurrentPageIndex(currentPageIndex - 1); // ✅
+  setHistoricPageIndex(currentPageIndex);
+};
     const setPage = (index: number) =>{
         if(index === currentPageIndex) return ;
         if(index > currentPageIndex+1) return ;
